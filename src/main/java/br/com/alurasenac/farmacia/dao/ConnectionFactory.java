@@ -1,19 +1,29 @@
 package br.com.alurasenac.farmacia.dao;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
+
 public class ConnectionFactory {
-    public static void main(String[] args) {
+
+    public Connection recuperarConexao() {
         try {
-            Connection connection = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/farmacia?user=root&password=");
-
-            System.out.println("Recuperei a conexão");
-
-            connection.close();
+            return createDataSource().getConnection();
         } catch (SQLException e) {
-            System.out.println(e);
+            throw new RuntimeException(e);
         }
     }
+
+    private  HikariDataSource createDataSource() {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:mysql://localhost:3306/farmacia");
+        config.setUsername("root");
+        config.setPassword("");
+        config.setMaximumPoolSize(10);
+
+        return new HikariDataSource(config);
+    }
+
 }

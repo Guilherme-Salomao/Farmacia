@@ -10,6 +10,11 @@ public class Produto {
         return preco;
     }
 
+    public Produto(double preco, String nome, String fabricante) {
+        this.preco = preco;
+        this.nome = nome;
+        this.fabricante = fabricante;
+    }
     public void setPreco(double preco) {
         this.preco = preco;
     }
@@ -28,5 +33,14 @@ public class Produto {
 
     public void setFabricante(String fabricante) {
         this.fabricante = fabricante;
+    }
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "preco=" + preco +
+                ", nome='" + nome + '\'' +
+                ", fabricante='" + fabricante + '\'' +
+                '}';
     }
 }
